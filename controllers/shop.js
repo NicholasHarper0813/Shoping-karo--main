@@ -4,19 +4,6 @@ const Cart = require("../models/cart");
 const Order = require("../models/order");
 
 exports.getProducts = (req, res, next) => {
-  //   console.log(adminData.products);
-  //   res.sendFile(path.join(rootDir, "views", "shop.html"));
-  //   const products = adminData.products;
-
-  // ---------- With MongoDB -------------
-  // Product.fetchAll((products) => {
-  //   res.render("shop/product-list", {
-  //     prods: products,
-  //     pageTitle: "All Products",
-  //   });
-  // });
-
-  // ---------- With Mongoose -------------
   Product.find()
     .then((products) => {
       res.render("shop/product-list", {
@@ -31,16 +18,6 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
-
-  // ---------- With MongoDB -------------
-  // Product.getProductById(prodId).then((product) => {
-  //   res.render("shop/product-details", {
-  //     product: product,
-  //     pageTitle: product.title,
-  //   });
-  // });
-
-  // ---------- With Mongoose -------------
   Product.findById(prodId).then((product) => {
     res.render("shop/product-details", {
       product: product,
@@ -50,45 +27,14 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {
-  // Product.fetchAll((products) => {
-  //   res.render("shop/index", { prods: products, pageTitle: "Shop" });
-  // });
-
-  // ---------- With MongoDB -------------
-  // Product.fetchAll((products) => {
-  //   res.render("shop/index", { prods: products, pageTitle: "Shop" });
-  // });
-
-  // ---------- With Mongoose -------------
   Product.find().then((products) => {
     res.render("shop/index", { prods: products, pageTitle: "Shop" });
   });
 };
 
-// exports.addToCart = (req, res, next) => {
-//   res.render("shop/cart", { pageTitle: "your Cart" });
-// };
-
 exports.postCart = (req, res, next) => {
   const prodId = req.body.productId;
 
-  // ---------- With MongoDB -------------
-  // Product.getProductById(prodId)
-  //   .then((product) => {
-  //     return req.user.addToCart(product);
-  //   })
-  //   .then((result) => {
-  //     console.log(result);
-  //     res.redirect("/cart");
-  //   });
-
-  // ----------------------Not this one-----------------
-  // Product.getProductById(prodId, (product) => {
-  //   Cart.addproduct(prodId, product.price);
-  // });
-  // console.log(prodId);
-
-  // ---------- With Mongoose -------------
   Product.findById(prodId)
     .then((product) => {
       return req.user.addToCart(product);
@@ -112,7 +58,6 @@ exports.postCartDelete = (req, res, next) => {
 
 exports.getCart = (req, res, next) => {
   req.user
-    // .getCart()
     .populate("cart.items.productId")
     .then((user) => {
       const products = user.cart.items;
@@ -144,7 +89,6 @@ exports.postOrder = (req, res, next) => {
     })
     .then((result) => {
       return req.user.clearCart();
-      // res.render("shop/checkout", { pageTitle: "Checkout" });
     })
     .then(() => {
       res.redirect("/orders");
@@ -155,19 +99,6 @@ exports.postOrder = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-  
-  // --------------- By Using MongoDB -------------
-  // req.user
-  //   .getOrders()
-  //   .then((orders) => {
-  //     res.render("shop/orders", { pageTitle: "My Orders", orders: orders });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-
-
-    // --------------- By Using Mongoose -------------
     Order.find({ "user.userId": req.user._id })
     .then((orders) => {
       res.render("shop/orders", { pageTitle: "My Orders", orders: orders });
