@@ -1,5 +1,4 @@
 const mongodb = require("mongodb");
-
 const MongoClient = mongodb.MongoClient;
 
 const options = {
@@ -8,7 +7,6 @@ const options = {
 };
 
 let _db;
-
 const mongoConnect = (callback) => {
   MongoClient.connect(
     "mongodb+srv://<yourDBUser>:<password>@cluster0.ajqdph4.mongodb.net/?retryWrites=true&w=majority", // MongoDB URI
@@ -26,9 +24,12 @@ const mongoConnect = (callback) => {
 };
 
 const getDb = () => {
-  if (_db) {
+  if (_db) 
+  {
     return _db;
-  } else {
+  } 
+  else 
+  {
     throw "No Database found";
   }
 };
