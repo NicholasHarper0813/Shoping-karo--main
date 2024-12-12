@@ -1,6 +1,5 @@
 const mongodb = require("mongodb");
 const Product = require("../models/product");
-
 const ObjectId = mongodb.ObjectId;
 
 exports.getAddProduct = (req, res, next) => {
@@ -55,6 +54,17 @@ exports.getEditProduct = (req, res, next) => {
   });
 };
 
+exports.getProduct = (req, res, next) => {
+  Product.find()
+    .then((products) => {
+      console.log(products);
+      res.render("admin/products", {
+        prods: products,
+        pageTitle: "Admin Products",
+      });
+    });
+};
+
 exports.postEditProduct = (req, res, next) => {
   const prodId = req.body.productId;
   const updatedDescription = req.body.description;
@@ -76,18 +86,6 @@ exports.postEditProduct = (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-    });
-};
-
-exports.getProduct = (req, res, next) => 
-{
-  Product.find()
-    .then((products) => {
-      console.log(products);
-      res.render("admin/products", {
-        prods: products,
-        pageTitle: "Admin Products",
-      });
     });
 };
 
