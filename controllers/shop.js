@@ -1,6 +1,6 @@
 const { redirect } = require("react-router");
-const Product = require("../models/product");
 const Order = require("../models/order");
+const Product = require("../models/product");
 const Cart = require("../models/cart");
 
 exports.getProducts = (req, res, next) => {
@@ -14,16 +14,6 @@ exports.getProducts = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
-};
-
-exports.getProduct = (req, res, next) => {
-  const prodId = req.params.productId;
-  Product.findById(prodId).then((product) => {
-    res.render("shop/product-details", {
-      product: product,
-      pageTitle: product.title,
-    });
-  });
 };
 
 exports.getIndex = (req, res, next) => {
@@ -71,6 +61,27 @@ exports.getCart = (req, res, next) => {
     });
 };
 
+exports.getProduct = (req, res, next) => {
+  const prodId = req.params.productId;
+  Product.findById(prodId).then((product) => {
+    res.render("shop/product-details", {
+      product: product,
+      pageTitle: product.title,
+    });
+  });
+};
+
+exports.getOrders = (req, res, next) => {
+    Order.find({ "user.userId": req.user._id })
+    .then((orders) => {
+      res.render("shop/orders", { pageTitle: "My Orders", orders: orders });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+};
+
 exports.postOrder = (req, res, next) => {
   req.user
     .populate("cart.items.productId")
@@ -96,15 +107,4 @@ exports.postOrder = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
-};
-
-exports.getOrders = (req, res, next) => {
-    Order.find({ "user.userId": req.user._id })
-    .then((orders) => {
-      res.render("shop/orders", { pageTitle: "My Orders", orders: orders });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
 };
