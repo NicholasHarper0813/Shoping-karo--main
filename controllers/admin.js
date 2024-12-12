@@ -1,5 +1,5 @@
-const mongodb = require("mongodb");
 const Product = require("../models/product");
+const mongodb = require("mongodb");
 const ObjectId = mongodb.ObjectId;
 
 exports.getAddProduct = (req, res, next) => {
