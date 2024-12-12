@@ -1,7 +1,7 @@
 const { redirect } = require("react-router");
 const Product = require("../models/product");
-const Cart = require("../models/cart");
 const Order = require("../models/order");
+const Cart = require("../models/cart");
 
 exports.getProducts = (req, res, next) => {
   Product.find()
