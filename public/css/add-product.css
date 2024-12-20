@@ -1,4 +1,5 @@
-.form-hero p {
+.form-hero p 
+{
   font-weight: bold;
 }
 .form-hero input,textarea {
@@ -11,18 +12,18 @@
   border-radius: 2px;
 }
 
-.form-hero input::placeholder{
+.form-hero input::placeholder
+{
   font-size: 15px;
 }
-/* .form-section {
-  display: flex;
-} */
-.form-button {
+.form-button
+{
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.form-button button {
+.form-button button 
+{
   padding: 10px 15px;
   background-color: greenyellow;
   border: none;
@@ -31,7 +32,8 @@
   font-size: 16px;
   font-weight: bold;
 }
-.form-button button:hover {
+.form-button button:hover 
+{
   color: greenyellow;
   background-color: black;
   transition: 0.3s all ease-in;
