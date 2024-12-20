@@ -1,18 +1,22 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const userSchema = new Schema({
-  name: {
+  name: 
+  {
     type: String,
     required: true,
   },
-  email: {
+  email: 
+  {
     type: String,
     required: true,
   },
-  cart: {
+  cart: 
+  {
     items: [
       {
-        productId: {
+        productId: 
+        {
           type: Schema.Types.ObjectId,
           ref: "Product",
           required: true,
@@ -43,7 +47,8 @@ userSchema.methods.addToCart = function (product)
       quantity: newQuantity,
     });
   }
-  const updatedCart = {
+  const updatedCart = 
+  {
     items: updatedCartItems,
   };
   this.cart = updatedCart;
@@ -66,7 +71,3 @@ userSchema.methods.clearCart = function ()
 };
 
 module.exports = mongoose.model("User", userSchema);
-
-// }
-
-// module.exports = User;
