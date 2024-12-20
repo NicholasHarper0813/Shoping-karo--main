@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-
 const p = path.join(
   path.dirname(process.mainModule.filename),
   "data",
@@ -44,7 +43,7 @@ module.exports = class Cart
   static deleteProduct(id, productPrice) 
   {
     fs.readFile(p, (err, fileContent) => 
-      {
+    {
       if (err) 
       {
         return;
