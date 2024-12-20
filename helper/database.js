@@ -1,6 +1,5 @@
 const mongodb = require("mongodb");
 const MongoClient = mongodb.MongoClient;
-
 const options = {
   ssl: true,
   tls: true,
